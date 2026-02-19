@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-if [[ "${OSTYPE}" == "msys"* ]]; then
+if [[ "${OSTYPE}" == "msys"* || "${OSTYPE}" == "cygwin"* ]]; then
     # Tell the windows service to forget everything, and then die
     /C/Windows/System32/OpenSSH/ssh-agent -D
     powershell -noprofile -command "Stop-Service ssh-agent"

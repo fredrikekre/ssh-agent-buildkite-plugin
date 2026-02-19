@@ -4,8 +4,10 @@ set -eou pipefail
 
 SSH_AGENT="ssh-agent"
 SSH_ADD="ssh-add"
-# If we're on windows, we want to use the builtin openssh utilities, not mingw ones
-if [[ "${OSTYPE}" == "msys"* ]]; then
+# If we're on windows, we want to use the builtin openssh utilities, not mingw ones.
+# Git-for-Windows bash reports OSTYPE as either "msys" or "cygwin" depending on the
+# Git version (e.g. 2.54.0 reports "cygwin"), so match both.
+if [[ "${OSTYPE}" == "msys"* || "${OSTYPE}" == "cygwin"* ]]; then
     SSH_AGENT="/C/Windows/System32/OpenSSH/ssh-agent"
     SSH_ADD="/C/Windows/System32/OpenSSH/ssh-add"
     echo "Starting ssh-agent service, if not already started..."
